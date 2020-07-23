@@ -212,7 +212,11 @@ task generate_manifest(dependsOn: [ 'inject_versionIntoMetaFiles']) {
       def path = filename.path
       if (!(path.toLowerCase().endsWith('.meta') ||
             path.toLowerCase().endsWith('.txt'))) {
-        list << filename.path.replace("${pluginProjectPath}/", '')
+        if (os_windows) {
+            list << filename.path.replace("${pluginProjectPath}\\", '').replace("\\","/")
+        } else {
+            list << filename.path.replace("${pluginProjectPath}/", '')
+        }
       }
     }
   def manifest = file("${pluginProjectPath}/${editorDir}/" +
