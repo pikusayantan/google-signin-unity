@@ -152,7 +152,7 @@ task import_jarresolver() {
 
     doLast {
         def tree = fileTree(resolverDir) {
-            include "*.unitypackage"
+            include "*-latest.unitypackage"
         }
         def jarresolver_package = tree.getSingleFile()
         def argv = [
@@ -242,7 +242,7 @@ task package_plugin () {
 
     doLast {
         def tree = fileTree(resolverDir) {
-            include "*.unitypackage"
+            include "*-latest.unitypackage"
         }
         def jarresolver_package = tree.getSingleFile()
         def argv = [
