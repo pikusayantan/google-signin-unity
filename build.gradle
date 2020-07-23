@@ -222,23 +222,9 @@ task generate_manifest(dependsOn: [ 'inject_versionIntoMetaFiles']) {
   }
 }
 
-task copy_manifestMetadata(dependsOn: generate_manifest, type: Copy) {
-  def manifestBasename = versionedAssetName(currentPluginBasename + '.txt',
-        null) + '.meta'
-  description 'Copy .meta file for the plugin manifest.'
-  from file("${pluginSrcPath}/${editorDir}/" + manifestBasename)
-  into file("${pluginProjectPath}/${editorDir}/")
-  rename {
-    String fn ->
-      return fn.replace(manifestBasename,
-          versionedAssetName(currentPluginBasename + '.txt',
-          "${pluginVersion}") + '.meta')
-  }
-}
-
 task package_plugin () {
     description = "Creates and exports the Plugin unity package"
-    dependsOn generate_manifest, copy_manifestMetadata
+    dependsOn generate_manifest
 
     doLast {
         def tree = fileTree(resolverDir) {
